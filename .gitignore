@@ -1,0 +1,12 @@
+__pycache__
+*coverage*
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.vscode
+*egg*
+build
+dist
+docs
+junit
+optional/_version.py
