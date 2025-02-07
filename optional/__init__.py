@@ -1,15 +1,18 @@
-from abc import ABC, abstractmethod
-from typing import Any, Callable, Generic, TypeVar
-from typing import Optional as TypingOptional
+"""Optional module."""
 
-T = TypeVar("T")
+from abc import ABC, abstractmethod
+from collections.abc import Callable
+from typing import Any, Generic, TypeVar
+
 R = TypeVar("R")
+T = TypeVar("T")
 
 __all__ = ["Optional"]
 
 
 class MissingValueError(ValueError):
-    pass
+    def __init__(self) -> None:
+        super().__init__("Optional is empty")
 
 
 class Optional(Generic[T]):
@@ -18,24 +21,28 @@ class Optional(Generic[T]):
     Attributes:
         _value (T | None): The optional value.
         _parent (Optional): The parent optional value.
+        _null_value (T | None): Null value.
 
     """
 
-    _value: TypingOptional[T]
+    _value: T | None
+    _null_value: T | None
     _parent: "Optional[Any]"
 
-    def __init__(self, value: TypingOptional[T] = None) -> None:
+    def __init__(self, value: T | None = None, null_value: T | None = None) -> None:
         """Initialize the Optional instance with a value.
 
         Args:
-            value (T | None): The initial value.
+            value (T | None): The initial value, default=None.
+            null_value (T | None): Null value, default=None.
 
         """
         self._value = value
+        self._null_value = null_value
         self._parent = object.__new__(Optional)
 
     @property
-    def value(self) -> TypingOptional[T]:
+    def value(self) -> T | None:
         """Get the value of the Optional instance.
 
         Returns:
@@ -56,7 +63,7 @@ class Optional(Generic[T]):
         """
         return OptionalTransformMap[T, R](parent=self, callback=callback)
 
-    def flat_map(self, callback: Callable[[T], R]) -> "Optional[R]":
+    def flat_map(self, callback: Callable[[T], "Optional[R]"]) -> "Optional[R]":
         """Apply a transformation to the value and flatten the result.
 
         Args:
@@ -66,7 +73,7 @@ class Optional(Generic[T]):
             Optional[R]: A new Optional instance with the transformed and flattened value.
 
         """
-        return OptionalTransformFlatMap[T, R](parent=self, callback=callback)
+        return OptionalTransformMap[T, R](parent=self, callback=lambda x: callback(x).get())
 
     def filter(self, callback: Callable[[T], bool]) -> "Optional[T]":
         """Filter the value based on a predicate and return a new Optional instance.
@@ -122,10 +129,11 @@ class Optional(Generic[T]):
 
         """
         try:
-            self.get()
-            return False
+            self.get(default=self._get_null_value())
         except MissingValueError:
             return True
+        else:
+            return False
 
     def __bool__(self) -> bool:
         """Check if the Optional instance is not empty.
@@ -136,7 +144,16 @@ class Optional(Generic[T]):
         """
         return not self.is_empty()
 
-    def _get_value(self) -> TypingOptional[T]:
+    def _get_null_value(self) -> T | None:
+        """Get the null value of the Optional instance.
+
+        Returns:
+            T | None: The null value of the Optional instance.
+
+        """
+        return self._null_value
+
+    def _get_value(self) -> T | None:
         """Get the value of the Optional instance.
 
         Returns:
@@ -145,10 +162,7 @@ class Optional(Generic[T]):
         """
         return self.value
 
-    def get(
-        self,
-        default: TypingOptional[T] = None,
-    ) -> T:
+    def get(self, default: T | None = None) -> T:
         """Get the value of the Optional instance, or a default value if not present.
 
         Args:
@@ -161,12 +175,13 @@ class Optional(Generic[T]):
             MissingValueError: If the value is not present and no default value is provided.
 
         """
-        value: TypingOptional[T] = self._get_value()
-        if value is None:
+        value: T | None = self._get_value()
+        null_value: T | None = self._get_null_value()
+        if value == null_value:
             value = default
-        if value is None:
-            raise MissingValueError("Optional is empty")
-        return value
+        if value == null_value:
+            raise MissingValueError
+        return value  # type: ignore [return-value]
 
     def get_or_else(self, callback: Callable[[], T]) -> T:
         """Get the value of the Optional instance, or a value provided by a function if not present.
@@ -192,9 +207,9 @@ class OptionalTransform(ABC, Generic[T, R], Optional[R]):
 
     """
 
-    _callback: TypingOptional[Callable[[T], R]] = None
+    _callback: Callable[[T], R] | None = None
 
-    def __init__(self, parent: Optional[T], callback: TypingOptional[Callable[[T], R]] = None) -> None:
+    def __init__(self, parent: Optional[T], callback: Callable[[T], R] | None = None) -> None:
         """Initialize the OptionalTransform instance.
 
         Args:
@@ -205,92 +220,66 @@ class OptionalTransform(ABC, Generic[T, R], Optional[R]):
         self._parent = parent
         self._callback = callback
 
-    @abstractmethod
-    def _run(self) -> TypingOptional[R]:
-        """Run the transformation and return the result.
+    def _get_null_value(self) -> R | None:
+        """Get the null value of the Optional instance.
 
         Returns:
-            R | None: The result of the transformation.
+            R | None: The null value of the Optional instance.
 
         """
+        return self._parent._get_null_value()  # noqa: SLF001
 
-    def _get_value(self) -> TypingOptional[R]:
+    @abstractmethod
+    def _get_value(self) -> R | None:
         """Get the transformed value of the Optional instance.
 
         Returns:
             R | None: The transformed value of the Optional instance.
 
         """
-        return self._run()
 
 
 class OptionalTransformMap(OptionalTransform[T, R]):
     """A class for mapping Optional values."""
 
-    def _run(self) -> TypingOptional[R]:
+    def _get_value(self) -> R | None:
         """Run the transformation and return the result.
 
         Returns:
             R | None: The result of the transformation.
 
         """
-        try:
-            value: T = self._parent.get()
-            return self._callback(value)  # type: ignore [misc]
-        except MissingValueError:
-            return None
-
-
-class OptionalTransformFlatMap(OptionalTransform[T, R]):
-    """A class for flat mapping Optional values."""
-
-    def _run(self) -> TypingOptional[R]:
-        """Run the transformation and return the flattened result.
-
-        Returns:
-            R | None: The flattened result of the transformation.
-
-        """
-        try:
-            value: T = self._parent.get()
-            return self._callback(value).get()  # type: ignore [union-attr, misc]
-        except MissingValueError:
-            return None
+        value: T = self._parent.get()
+        return self._callback(value)  # type: ignore [misc]
 
 
 class OptionalTransformFilter(OptionalTransform[T, T]):
     """A class for filtering Optional values."""
 
-    def _run(self) -> TypingOptional[T]:
+    def _get_value(self) -> T | None:
         """Run the filter and return the result.
 
         Returns:
             T | None: The filtered result.
 
         """
-        try:
-            value: T = self._parent.get()
-            return value if self._callback(value) else None  # type: ignore [misc]
-        except MissingValueError:
-            return None
+        value: T = self._parent.get()
+        return value if self._callback(value) else self._get_null_value()  # type: ignore [misc]
 
 
 class OptionalTransformPeek(OptionalTransform[T, T]):
     """A class for peeking Optional values."""
 
-    def _run(self) -> TypingOptional[T]:
+    def _get_value(self) -> T | None:
         """Run the function and return the original value.
 
         Returns:
             T | None: The original value.
 
         """
-        try:
-            value: T = self._parent.get()
-            self._callback(value)  # type: ignore [misc]
-            return value
-        except MissingValueError:
-            return None
+        value: T = self._parent.get()
+        self._callback(value)  # type: ignore [misc]
+        return value
 
 
 class OptionalTransformCache(OptionalTransform[T, T]):
@@ -305,7 +294,7 @@ class OptionalTransformCache(OptionalTransform[T, T]):
         """
         return getattr(self, "_cached", False)
 
-    def _run(self) -> TypingOptional[T]:
+    def _get_value(self) -> T | None:
         """Cache the value and return the result.
 
         Returns:
@@ -316,7 +305,7 @@ class OptionalTransformCache(OptionalTransform[T, T]):
             try:
                 self._value = self._parent.get()
             except MissingValueError:
-                pass
+                self._value = self._get_null_value()
             finally:
                 self._cached = True
         return self._value

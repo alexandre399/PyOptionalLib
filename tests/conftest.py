@@ -1,5 +1,5 @@
 import sys
-import os
+from pathlib import Path
 
-here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+here = str(Path(__file__).resolve().parent.parent)
 sys.path.insert(0, here)
