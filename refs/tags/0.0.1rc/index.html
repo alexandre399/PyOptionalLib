@@ -333,7 +333,7 @@ el.replaceWith(d);
            str.
 
         &#34;&#34;&#34;
-        return f&#34;{self.__class__.__name__}({self._value})&#34;
+        return f&#34;&lt;{self.__class__.__name__}({self._value}) at {hex(id(self))}&gt;&#34;
 
     def __float__(self) -&gt; float:
         &#34;&#34;&#34;Get the float representation of the Optional class.
