@@ -109,6 +109,8 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
+      - name: Wait
+        run: sleep 60  # FIXME
       - name: Sign the dists with Sigstore
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
