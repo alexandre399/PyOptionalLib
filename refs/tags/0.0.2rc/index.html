@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>optional API documentation</title>
+<meta name="description" content="Optional module.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>optional</code></h1>
+</header>
+<section id="section-intro">
+<p>Optional module.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="optional.optional"><code class="name flex">
+<span>def <span class="ident">optional</span></span>(<span>is_empty: Callable[[~T | None], bool] = &lt;function &lt;lambda&gt;&gt;,<br>catch: bool = False) ‑> Callable[[Callable[..., ~T]], Callable[..., <a title="optional.Optional" href="#optional.Optional">Optional</a>]]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def optional(
+    is_empty: Callable[[T | None], bool] = lambda x: x is None,
+    catch: bool = False,  # noqa: FBT001, FBT002
+) -&gt; Callable[[Callable[..., T]], Callable[..., Optional]]:
+    &#34;&#34;&#34;Wrap a function and return an Optional object.
+
+    Args:
+        is_empty (Callable[[T | None], bool]): A function to determine if the value is
+        considered empty. Default is a function that returns True if the value is None.
+
+        catch (bool): If an error occurs during the execution of the wrapped function,
+        an empty Optional is returned, default is False.
+
+    Returns:
+        Callable[[Callable[..., T]], Callable[..., Optional]]: The wrapped function that
+        returns an Optional object.
+
+    &#34;&#34;&#34;
+
+    def decorator(func: Callable[..., T]) -&gt; Callable[..., Optional]:
+        &#34;&#34;&#34;Wrap the given function and returns an Optional object.
+
+        Args:
+            func (Callable[..., T]): The function to be wrapped.
+
+        Returns:
+            Callable[..., Optional]: The wrapped function that returns an Optional object.
+
+        &#34;&#34;&#34;
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs) -&gt; Optional:  # noqa: ANN003,ANN002
+            &#34;&#34;&#34;Execute the wrapped function and returns an Optional object.
+
+            Args:
+                *args (Any): Positional arguments for the wrapped function.
+                **kwargs (Any): Keyword arguments for the wrapped function.
+
+            Returns:
+                Optional: An Optional object wrapping the result of the function.
+
+            &#34;&#34;&#34;
+            try:
+                return Optional(value=func(*args, **kwargs), is_empty=is_empty)
+            except BaseException as err:
+                if catch:
+                    return OptionalError(exception=err)
+                raise
+
+        return wrapper
+
+    return decorator</code></pre>
+</details>
+<div class="desc"><p>Wrap a function and return an Optional object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>is_empty</code></strong> :&ensp;<code>Callable[[T | None], bool]</code></dt>
+<dd>A function to determine if the value is</dd>
+</dl>
+<p>considered empty. Default is a function that returns True if the value is None.</p>
+<dl>
+<dt><strong><code>catch</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If an error occurs during the execution of the wrapped function,</dd>
+</dl>
+<p>an empty Optional is returned, default is False.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Callable[[Callable[&hellip;, T]], Callable[&hellip;, <a title="optional.Optional" href="#optional.Optional">Optional</a>]]</code></dt>
+<dd>The wrapped function that</dd>
+</dl>
+<p>returns an Optional object.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="optional.Optional"><code class="flex name class">
+<span>class <span class="ident">Optional</span></span>
+<span>(</span><span>value: ~T | None = None,<br>is_empty: Callable[[~T | None], bool] = &lt;function Optional.&lt;lambda&gt;&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Optional(Generic[T]):
+    &#34;&#34;&#34;A class representing an optional value, which may or may not contain a value.
+
+    Attributes:
+        _value (T | None): The optional value.
+        _is_empty (Callable[[T], bool]): Test if value is empty.
+
+    &#34;&#34;&#34;
+
+    _value: T | None
+    _is_empty_callback: Callable[[T | None], bool]
+
+    def __init__(
+        self,
+        value: T | None = None,
+        is_empty: Callable[[T | None], bool] = lambda x: x is None,
+    ) -&gt; None:
+        &#34;&#34;&#34;Initialize the Optional instance with a value.
+
+        Args:
+            value (T | None): The initial value, default=None.
+            is_empty (Callable[[T], bool]): Test if value is empty.
+
+        &#34;&#34;&#34;
+        self._value = value
+        self._is_empty_callback = is_empty
+
+    def _is_empty(self, value: T | None) -&gt; bool:
+        &#34;&#34;&#34;Test if value is empty.
+
+        Returns:
+            bool.
+
+        &#34;&#34;&#34;
+        return self._is_empty_callback(value)
+
+    def __call__(self, callback: Callable[[T], R]) -&gt; &#34;Optional[R]&#34;:
+        &#34;&#34;&#34;Apply the given callback function to the object&#39;s state or data and returns
+        the result.
+
+        Args:
+            callback (Callable[[T], R]): A function that takes an argument of type T and
+                                         returns a value of type R.
+
+        Returns:
+            Optional[R]: The result of applying the callback to the object&#39;s data, or
+                         None if the operation cannot be performed.
+
+        &#34;&#34;&#34;
+        return self.map(callback=callback)
+
+    def map(self, callback: Callable[[T], R]) -&gt; &#34;Optional[R]&#34;:
+        &#34;&#34;&#34;Apply a transformation to the value and return a new Optional instance.
+
+        Args:
+            callback (Callable[[T], R]): The transformation function.
+
+        Returns:
+            Optional[R]: A new Optional instance with the transformed value.
+
+        &#34;&#34;&#34;
+        return OptionalMap[T, R](parent=self, callback=callback)
+
+    def flat_map(self, callback: Callable[[T], &#34;Optional[R]&#34;]) -&gt; &#34;Optional[R]&#34;:
+        &#34;&#34;&#34;Apply a transformation to the value and flatten the result.
+
+        Args:
+            callback (Callable[[T], R]): The transformation function.
+
+        Returns:
+            Optional[R]: A new Optional instance with the transformed and flattened value.
+
+        &#34;&#34;&#34;
+        return OptionalMap[T, R](
+            parent=self,
+            callback=lambda x: callback(x)._get_value(),  # type: ignore[arg-type, return-value]
+        )
+
+    def reduce(
+        self, optional: &#34;Optional[R]&#34;, callback: Callable[[T, R], S]
+    ) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Reduce the value with another Optional instance and return a new Optional
+        instance.
+
+        Args:
+            optional (Optional[R]): The other Optional instance.
+            callback (Callable[[T, R], S]): The reduction function.
+
+        Returns:
+            Optional[S]: A new Optional instance with the reduced value.
+
+        &#34;&#34;&#34;
+        return OptionalMap[T, S](
+            parent=self,
+            callback=lambda x: callback(x, optional._get_value()),  # type: ignore[arg-type]
+        )
+
+    def filter(self, callback: Callable[[T], bool]) -&gt; &#34;Optional[T]&#34;:
+        &#34;&#34;&#34;Filter the value based on a predicate and return a new Optional instance.
+
+        Args:
+            callback (Callable[[T], bool]): The predicate function.
+
+        Returns:
+            Optional[T]: A new Optional instance with the filtered value.
+
+        &#34;&#34;&#34;
+        return OptionalFilter[T](parent=self, callback=callback)  # type: ignore[arg-type]
+
+    def cache(self) -&gt; &#34;Optional[T]&#34;:
+        &#34;&#34;&#34;Cache the value and return a new Optional instance.
+
+        Returns:
+            Optional[T]: A new Optional instance with the cached value.
+
+        &#34;&#34;&#34;
+        return OptionalCache[T](parent=self)
+
+    def peek(self, callback: Callable[[T], None]) -&gt; &#34;Optional[T]&#34;:
+        &#34;&#34;&#34;Apply a function to the value without transforming it and return a new
+        Optional instance.
+
+        Args:
+            callback (Callable[[T], None]): The function to apply.
+
+        Returns:
+            Optional[T]: A new Optional instance with the same value.
+
+        &#34;&#34;&#34;
+        return OptionalPeek[T](parent=self, callback=callback)  # type: ignore[arg-type]
+
+    def if_present(self, callback: Callable[[T | None], None]) -&gt; None:
+        &#34;&#34;&#34;Apply a function to the value if it is present.
+
+        Args:
+            callback (Callable[[T], None]): The function to apply.
+
+        &#34;&#34;&#34;
+        try:
+            value: T | None = self._get_value()
+        except MissingValueError:
+            pass
+        else:
+            callback(value)
+
+    def is_empty(self) -&gt; bool:
+        &#34;&#34;&#34;Check if the Optional instance is empty.
+
+        Returns:
+            bool: True if the Optional instance is empty, False otherwise.
+
+        &#34;&#34;&#34;
+        try:
+            self._get_value()
+        except MissingValueError:
+            return True
+        else:
+            return False
+
+    def __bool__(self) -&gt; bool:
+        &#34;&#34;&#34;Check if the Optional instance is not empty.
+
+        Returns:
+            bool: True if the Optional instance is not empty, False otherwise.
+
+        &#34;&#34;&#34;
+        return not self.is_empty()
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Get the string representation of the Optional class.
+
+        Returns:
+           str.
+
+        &#34;&#34;&#34;
+        return str(self._get_value())
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;Get the string representation of the Optional class.
+
+        Returns:
+           str.
+
+        &#34;&#34;&#34;
+        return f&#34;&lt;{self.__class__.__name__}({self._value}) at {hex(id(self))}&gt;&#34;
+
+    def __float__(self) -&gt; float:
+        &#34;&#34;&#34;Get the float representation of the Optional class.
+
+        Returns:
+           float.
+
+        &#34;&#34;&#34;
+        return float(self._get_value())  # type: ignore[arg-type]
+
+    def __int__(self) -&gt; int:
+        &#34;&#34;&#34;Get the int representation of the Optional class.
+
+        Returns:
+           int.
+
+        &#34;&#34;&#34;
+        return int(self._get_value())  # type: ignore[arg-type, call-overload]
+
+    def __add__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Add the values of two Optional objects.
+
+        Args:
+            other (Optional[R]): Another Optional object to add to this one.
+
+        Returns:
+            Optional[S]: An Optional object with the sum of the values, or an empty
+                         Optional if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a + b)  # type: ignore[operator]
+
+    def __sub__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Subtract the value of another Optional object from this one.
+
+        Args:
+            other (Optional[R]): Another Optional object to subtract from this one.
+
+        Returns:
+            Optional[S]: An Optional object with the difference of the values, or an
+                         empty Optional if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a - b)  # type: ignore[operator]
+
+    def __mul__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Multiplie the values of two Optional objects.
+
+        Args:
+            other (Optional[R]): Another Optional object to multiply with this one.
+
+        Returns:
+            Optional[S]: An Optional object with the product of the values, or an
+                         empty Optional if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a * b)  # type: ignore[operator]
+
+    def __truediv__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Divide the value of this Optional object by the value of another.
+
+        Args:
+            other (Optional[R]): Another Optional object to divide this one by.
+
+        Returns:
+            Optional[S]: An Optional object with the quotient of the values, or an empty
+                         Optional if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a / b)  # type: ignore[operator]
+
+    def __floordiv__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Perform floor division on the values of two Optional objects.
+
+        Args:
+            other (Optional[R]): Another Optional object to perform floor division with.
+
+        Returns:
+            Optional[S]: An Optional object with the floor division result, or an empty
+                         Optional if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a // b)  # type: ignore[operator]
+
+    def __mod__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Compute the modulo of the values of two Optional objects.
+
+        Args:
+            other (Optional[R]): Another Optional object to compute the modulo with.
+
+        Returns:
+            Optional[S]: An Optional object with the modulo result, or an empty Optional
+                         if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a % b)  # type: ignore[operator]
+
+    def __pow__(self, other: &#34;Optional[R]&#34;) -&gt; &#34;Optional[S]&#34;:
+        &#34;&#34;&#34;Raise the value of this Optional object to the power of the value of another.
+
+        Args:
+            other (Optional[R]): Another Optional object to use as the exponent.
+
+        Returns:
+            Optional[S]: An Optional object with the power result, or an empty Optional
+                         if either is empty.
+
+        &#34;&#34;&#34;
+        return self.reduce(other, lambda a, b: a**b)  # type: ignore[operator]
+
+    def __eq__(self, value: object) -&gt; bool:
+        &#34;&#34;&#34;Check for equality between two Optional instances.
+
+        This method checks if the given value is an instance of Optional and if so,
+        compares the values of both instances using the specified lambda function.
+
+        Args:
+            value (object): The value to compare against.
+
+        Returns:
+            bool: True if the values are not empty and equal, False otherwise.
+
+        &#34;&#34;&#34;
+        return self.reduce(
+            value if isinstance(value, Optional) else Optional(value=value),
+            lambda a, b: a == b,
+        ).get(default=False)
+
+    def __lt__(self, value: object) -&gt; bool:
+        &#34;&#34;&#34;Determine if this object is less than the given value.
+
+        Args:
+            value (object): The value to compare with.
+
+        Returns:
+            bool: True if this object is not empty and less than the given value,
+            False otherwise.
+
+        &#34;&#34;&#34;
+        return self.reduce(
+            value if isinstance(value, Optional) else Optional(value=value),
+            lambda a, b: a &lt; b,
+        ).get(default=False)
+
+    def __le__(self, value: object) -&gt; bool:
+        &#34;&#34;&#34;Determine if this object is less than or equal to the given value.
+
+        Args:
+            value (object): The value to compare with.
+
+        Returns:
+            bool: True if this object is not empty and less than or equal to the given
+            value, False otherwise.
+
+        &#34;&#34;&#34;
+        return self.reduce(
+            value if isinstance(value, Optional) else Optional(value=value),
+            lambda a, b: a &lt;= b,
+        ).get(default=False)
+
+    def __gt__(self, value: object) -&gt; bool:
+        &#34;&#34;&#34;Determine if this object is greater than the given value.
+
+        Args:
+            value (object): The value to compare with.
+
+        Returns:
+            bool: True if this object is not empty and greater than the given value,
+            False otherwise.
+
+        &#34;&#34;&#34;
+        return self.reduce(
+            value if isinstance(value, Optional) else Optional(value=value),
+            lambda a, b: a &gt; b,
+        ).get(default=False)
+
+    def __ge__(self, value: object) -&gt; bool:
+        &#34;&#34;&#34;Determine if this object is greater than or equal to the given value.
+
+        Args:
+            value (object): The value to compare with.
+
+        Returns:
+            bool: True if this object is not empty and greater than or equal to the given
+            value, False otherwise.
+
+        &#34;&#34;&#34;
+        return self.reduce(
+            value if isinstance(value, Optional) else Optional(value=value),
+            lambda a, b: a &gt;= b,
+        ).get(default=False)
+
+    def _get_value(self) -&gt; T | None:
+        &#34;&#34;&#34;Get the value of the Optional instance.
+
+        Returns:
+            T | None: The value of the Optional instance.
+
+        Raises:
+            MissingValueError: If the value is not present.
+
+        &#34;&#34;&#34;
+        if self._is_empty(self._value):
+            raise MissingValueError
+        return self._value
+
+    def get(
+        self,
+        exception: type[MissingValueError] | BaseException = MissingValueError,
+        **kwargs,  # noqa: ANN003
+    ) -&gt; T:
+        &#34;&#34;&#34;Get the value of the Optional instance, or a default value if not present.
+
+        Args:
+            exception (MissingValueError): The default exception
+            kwargs (dict): The default value.
+
+        Example:
+            Optional(10).map(lambda x: x * 2).get(
+                exception=CustomMissingValueError,
+                default=42
+            )
+
+            Optional(10).map(lambda x: x * 2).get(default=42)
+
+            Optional(10).map(lambda x: x * 2).get(exception=CustomMissingValueError)
+
+        Returns:
+            T: The value of the Optional instance, or the default value.
+
+        Raises:
+            MissingValueError: If the value is not present and no default value
+            is provided.
+
+        &#34;&#34;&#34;
+        try:
+            value: T | None = self._get_value()
+        except MissingValueError as err:
+            try:
+                return kwargs[&#34;default&#34;]  # type: ignore[assignment]
+            except KeyError:
+                raise exception from err
+        else:
+            return value  # type: ignore[return-value]
+
+    def get_or_else(self, callback: Callable[[], T]) -&gt; T:
+        &#34;&#34;&#34;Get the value of the Optional instance, or a value provided by a function
+        if not present.
+
+        Args:
+            callback (Callable[[], T]): The function to provide a value.
+
+        Returns:
+            T: The value of the Optional instance, or the value provided by the function.
+
+        &#34;&#34;&#34;
+        try:
+            return self._get_value()  # type: ignore[return-value]
+        except MissingValueError:
+            return callback()</code></pre>
+</details>
+<div class="desc"><p>A class representing an optional value, which may or may not contain a value.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>_value</code></strong> :&ensp;<code>T | None</code></dt>
+<dd>The optional value.</dd>
+<dt><strong><code>_is_empty</code></strong> :&ensp;<code>Callable[[T], bool]</code></dt>
+<dd>Test if value is empty.</dd>
+</dl>
+<p>Initialize the Optional instance with a value.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>value</code></strong> :&ensp;<code>T | None</code></dt>
+<dd>The initial value, default=None.</dd>
+<dt><strong><code>is_empty</code></strong> :&ensp;<code>Callable[[T], bool]</code></dt>
+<dd>Test if value is empty.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>typing.Generic</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li>optional.OptionalEmpty</li>
+<li>optional.OptionalTransform</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="optional.Optional.cache"><code class="name flex">
+<span>def <span class="ident">cache</span></span>(<span>self) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~T]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cache(self) -&gt; &#34;Optional[T]&#34;:
+    &#34;&#34;&#34;Cache the value and return a new Optional instance.
+
+    Returns:
+        Optional[T]: A new Optional instance with the cached value.
+
+    &#34;&#34;&#34;
+    return OptionalCache[T](parent=self)</code></pre>
+</details>
+<div class="desc"><p>Cache the value and return a new Optional instance.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[T]</code></dt>
+<dd>A new Optional instance with the cached value.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.filter"><code class="name flex">
+<span>def <span class="ident">filter</span></span>(<span>self, callback: Callable[[~T], bool]) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~T]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter(self, callback: Callable[[T], bool]) -&gt; &#34;Optional[T]&#34;:
+    &#34;&#34;&#34;Filter the value based on a predicate and return a new Optional instance.
+
+    Args:
+        callback (Callable[[T], bool]): The predicate function.
+
+    Returns:
+        Optional[T]: A new Optional instance with the filtered value.
+
+    &#34;&#34;&#34;
+    return OptionalFilter[T](parent=self, callback=callback)  # type: ignore[arg-type]</code></pre>
+</details>
+<div class="desc"><p>Filter the value based on a predicate and return a new Optional instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T], bool]</code></dt>
+<dd>The predicate function.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[T]</code></dt>
+<dd>A new Optional instance with the filtered value.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.flat_map"><code class="name flex">
+<span>def <span class="ident">flat_map</span></span>(<span>self,<br>callback: Callable[[~T], '<a title="optional.Optional" href="#optional.Optional">Optional</a>[R]']) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~R]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def flat_map(self, callback: Callable[[T], &#34;Optional[R]&#34;]) -&gt; &#34;Optional[R]&#34;:
+    &#34;&#34;&#34;Apply a transformation to the value and flatten the result.
+
+    Args:
+        callback (Callable[[T], R]): The transformation function.
+
+    Returns:
+        Optional[R]: A new Optional instance with the transformed and flattened value.
+
+    &#34;&#34;&#34;
+    return OptionalMap[T, R](
+        parent=self,
+        callback=lambda x: callback(x)._get_value(),  # type: ignore[arg-type, return-value]
+    )</code></pre>
+</details>
+<div class="desc"><p>Apply a transformation to the value and flatten the result.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T], R]</code></dt>
+<dd>The transformation function.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[R]</code></dt>
+<dd>A new Optional instance with the transformed and flattened value.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self,<br>exception: type[optional.MissingValueError] | BaseException = optional.MissingValueError,<br>**kwargs) ‑> ~T</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(
+    self,
+    exception: type[MissingValueError] | BaseException = MissingValueError,
+    **kwargs,  # noqa: ANN003
+) -&gt; T:
+    &#34;&#34;&#34;Get the value of the Optional instance, or a default value if not present.
+
+    Args:
+        exception (MissingValueError): The default exception
+        kwargs (dict): The default value.
+
+    Example:
+        Optional(10).map(lambda x: x * 2).get(
+            exception=CustomMissingValueError,
+            default=42
+        )
+
+        Optional(10).map(lambda x: x * 2).get(default=42)
+
+        Optional(10).map(lambda x: x * 2).get(exception=CustomMissingValueError)
+
+    Returns:
+        T: The value of the Optional instance, or the default value.
+
+    Raises:
+        MissingValueError: If the value is not present and no default value
+        is provided.
+
+    &#34;&#34;&#34;
+    try:
+        value: T | None = self._get_value()
+    except MissingValueError as err:
+        try:
+            return kwargs[&#34;default&#34;]  # type: ignore[assignment]
+        except KeyError:
+            raise exception from err
+    else:
+        return value  # type: ignore[return-value]</code></pre>
+</details>
+<div class="desc"><p>Get the value of the Optional instance, or a default value if not present.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>exception</code></strong> :&ensp;<code>MissingValueError</code></dt>
+<dd>The default exception</dd>
+<dt><strong><code>kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The default value.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p>Optional(10).map(lambda x: x * 2).get(
+exception=CustomMissingValueError,
+default=42
+)</p>
+<p>Optional(10).map(lambda x: x * 2).get(default=42)</p>
+<p>Optional(10).map(lambda x: x * 2).get(exception=CustomMissingValueError)</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>T</code></dt>
+<dd>The value of the Optional instance, or the default value.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>MissingValueError</code></dt>
+<dd>If the value is not present and no default value</dd>
+</dl>
+<p>is provided.</p></div>
+</dd>
+<dt id="optional.Optional.get_or_else"><code class="name flex">
+<span>def <span class="ident">get_or_else</span></span>(<span>self, callback: Callable[[], ~T]) ‑> ~T</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_or_else(self, callback: Callable[[], T]) -&gt; T:
+    &#34;&#34;&#34;Get the value of the Optional instance, or a value provided by a function
+    if not present.
+
+    Args:
+        callback (Callable[[], T]): The function to provide a value.
+
+    Returns:
+        T: The value of the Optional instance, or the value provided by the function.
+
+    &#34;&#34;&#34;
+    try:
+        return self._get_value()  # type: ignore[return-value]
+    except MissingValueError:
+        return callback()</code></pre>
+</details>
+<div class="desc"><p>Get the value of the Optional instance, or a value provided by a function
+if not present.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[], T]</code></dt>
+<dd>The function to provide a value.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>T</code></dt>
+<dd>The value of the Optional instance, or the value provided by the function.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.if_present"><code class="name flex">
+<span>def <span class="ident">if_present</span></span>(<span>self, callback: Callable[[~T | None], None]) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def if_present(self, callback: Callable[[T | None], None]) -&gt; None:
+    &#34;&#34;&#34;Apply a function to the value if it is present.
+
+    Args:
+        callback (Callable[[T], None]): The function to apply.
+
+    &#34;&#34;&#34;
+    try:
+        value: T | None = self._get_value()
+    except MissingValueError:
+        pass
+    else:
+        callback(value)</code></pre>
+</details>
+<div class="desc"><p>Apply a function to the value if it is present.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T], None]</code></dt>
+<dd>The function to apply.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.is_empty"><code class="name flex">
+<span>def <span class="ident">is_empty</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_empty(self) -&gt; bool:
+    &#34;&#34;&#34;Check if the Optional instance is empty.
+
+    Returns:
+        bool: True if the Optional instance is empty, False otherwise.
+
+    &#34;&#34;&#34;
+    try:
+        self._get_value()
+    except MissingValueError:
+        return True
+    else:
+        return False</code></pre>
+</details>
+<div class="desc"><p>Check if the Optional instance is empty.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the Optional instance is empty, False otherwise.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.map"><code class="name flex">
+<span>def <span class="ident">map</span></span>(<span>self, callback: Callable[[~T], ~R]) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~R]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def map(self, callback: Callable[[T], R]) -&gt; &#34;Optional[R]&#34;:
+    &#34;&#34;&#34;Apply a transformation to the value and return a new Optional instance.
+
+    Args:
+        callback (Callable[[T], R]): The transformation function.
+
+    Returns:
+        Optional[R]: A new Optional instance with the transformed value.
+
+    &#34;&#34;&#34;
+    return OptionalMap[T, R](parent=self, callback=callback)</code></pre>
+</details>
+<div class="desc"><p>Apply a transformation to the value and return a new Optional instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T], R]</code></dt>
+<dd>The transformation function.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[R]</code></dt>
+<dd>A new Optional instance with the transformed value.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.peek"><code class="name flex">
+<span>def <span class="ident">peek</span></span>(<span>self, callback: Callable[[~T], None]) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~T]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def peek(self, callback: Callable[[T], None]) -&gt; &#34;Optional[T]&#34;:
+    &#34;&#34;&#34;Apply a function to the value without transforming it and return a new
+    Optional instance.
+
+    Args:
+        callback (Callable[[T], None]): The function to apply.
+
+    Returns:
+        Optional[T]: A new Optional instance with the same value.
+
+    &#34;&#34;&#34;
+    return OptionalPeek[T](parent=self, callback=callback)  # type: ignore[arg-type]</code></pre>
+</details>
+<div class="desc"><p>Apply a function to the value without transforming it and return a new
+Optional instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T], None]</code></dt>
+<dd>The function to apply.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[T]</code></dt>
+<dd>A new Optional instance with the same value.</dd>
+</dl></div>
+</dd>
+<dt id="optional.Optional.reduce"><code class="name flex">
+<span>def <span class="ident">reduce</span></span>(<span>self,<br>optional: <a title="optional.Optional" href="#optional.Optional">Optional</a>[R],<br>callback: Callable[[~T, ~R], ~S]) ‑> <a title="optional.Optional" href="#optional.Optional">Optional</a>[~S]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reduce(
+    self, optional: &#34;Optional[R]&#34;, callback: Callable[[T, R], S]
+) -&gt; &#34;Optional[S]&#34;:
+    &#34;&#34;&#34;Reduce the value with another Optional instance and return a new Optional
+    instance.
+
+    Args:
+        optional (Optional[R]): The other Optional instance.
+        callback (Callable[[T, R], S]): The reduction function.
+
+    Returns:
+        Optional[S]: A new Optional instance with the reduced value.
+
+    &#34;&#34;&#34;
+    return OptionalMap[T, S](
+        parent=self,
+        callback=lambda x: callback(x, optional._get_value()),  # type: ignore[arg-type]
+    )</code></pre>
+</details>
+<div class="desc"><p>Reduce the value with another Optional instance and return a new Optional
+instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>optional</code></strong> :&ensp;<code><a title="optional.Optional" href="#optional.Optional">Optional</a>[R]</code></dt>
+<dd>The other Optional instance.</dd>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[T, R], S]</code></dt>
+<dd>The reduction function.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="optional.Optional" href="#optional.Optional">Optional</a>[S]</code></dt>
+<dd>A new Optional instance with the reduced value.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="optional.optional" href="#optional.optional">optional</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="optional.Optional" href="#optional.Optional">Optional</a></code></h4>
+<ul class="two-column">
+<li><code><a title="optional.Optional.cache" href="#optional.Optional.cache">cache</a></code></li>
+<li><code><a title="optional.Optional.filter" href="#optional.Optional.filter">filter</a></code></li>
+<li><code><a title="optional.Optional.flat_map" href="#optional.Optional.flat_map">flat_map</a></code></li>
+<li><code><a title="optional.Optional.get" href="#optional.Optional.get">get</a></code></li>
+<li><code><a title="optional.Optional.get_or_else" href="#optional.Optional.get_or_else">get_or_else</a></code></li>
+<li><code><a title="optional.Optional.if_present" href="#optional.Optional.if_present">if_present</a></code></li>
+<li><code><a title="optional.Optional.is_empty" href="#optional.Optional.is_empty">is_empty</a></code></li>
+<li><code><a title="optional.Optional.map" href="#optional.Optional.map">map</a></code></li>
+<li><code><a title="optional.Optional.peek" href="#optional.Optional.peek">peek</a></code></li>
+<li><code><a title="optional.Optional.reduce" href="#optional.Optional.reduce">reduce</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
