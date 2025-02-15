@@ -72,16 +72,6 @@ class Optional(Generic[T]):
         optional.err = exception if exception else sys.exc_info()  # type: ignore[attr-defined]
         return optional
 
-    @property
-    def value(self) -> T | None:
-        """Get the value of the Optional instance.
-
-        Returns:
-            T | None: The value of the Optional instance.
-
-        """
-        return self._value
-
     def __call__(self, callback: Callable[[T], R]) -> "Optional[R]":
         """Apply the given callback function to the object's state or data and returns
         the result.
