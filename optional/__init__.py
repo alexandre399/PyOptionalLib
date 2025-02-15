@@ -54,16 +54,6 @@ class Optional(Generic[T]):
         """
         return self._is_empty_callback(value)
 
-    @property
-    def value(self) -> T | None:
-        """Get the value of the Optional instance.
-
-        Returns:
-            T | None: The value of the Optional instance.
-
-        """
-        return self._value
-
     def __call__(self, callback: Callable[[T], R]) -> "Optional[R]":
         """Apply the given callback function to the object's state or data and returns
         the result.
@@ -419,7 +409,11 @@ class Optional(Generic[T]):
             raise MissingValueError
         return self._value
 
-    def get(self, exception: type[MissingValueError] = MissingValueError, **kwargs) -> T:  # noqa: ANN003
+    def get(
+        self,
+        exception: type[MissingValueError] | BaseException = MissingValueError,
+        **kwargs,  # noqa: ANN003
+    ) -> T:
         """Get the value of the Optional instance, or a default value if not present.
 
         Args:
@@ -469,6 +463,25 @@ class Optional(Generic[T]):
             return self._get_value()  # type: ignore[return-value]
         except MissingValueError:
             return callback()
+
+
+class OptionalEmpty(Optional):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def _is_empty(self, value) -> bool:  # noqa: ARG002,ANN001
+        return True
+
+
+class OptionalError(OptionalEmpty):
+    _exception: BaseException
+
+    def __init__(self, exception: BaseException) -> None:
+        super().__init__()
+        self._exception = exception
+
+    def get(self, exception=MissingValueError, **kwargs) -> Any:  # noqa: ARG002,ANN001,ANN003,ANN401
+        return super().get(exception=self._exception, **kwargs)
 
 
 class OptionalTransform(ABC, Generic[T, R], Optional[R]):
@@ -604,7 +617,7 @@ class OptionalCache(OptionalTransform[T, T]):
 
 def optional(
     is_empty: Callable[[T | None], bool] = lambda x: x is None,
-    catch: bool = True,  # noqa: FBT001, FBT002
+    catch: bool = False,  # noqa: FBT001, FBT002
 ) -> Callable[[Callable[..., T]], Callable[..., Optional]]:
     """Wrap a function and return an Optional object.
 
@@ -613,7 +626,7 @@ def optional(
         considered empty. Default is a function that returns True if the value is None.
 
         catch (bool): If an error occurs during the execution of the wrapped function,
-        an empty Optional is returned, default is True.
+        an empty Optional is returned, default is False.
 
     Returns:
         Callable[[Callable[..., T]], Callable[..., Optional]]: The wrapped function that
@@ -646,9 +659,9 @@ def optional(
             """
             try:
                 return Optional(value=func(*args, **kwargs), is_empty=is_empty)
-            except:
+            except BaseException as err:
                 if catch:
-                    return Optional()
+                    return OptionalError(exception=err)
                 raise
 
         return wrapper

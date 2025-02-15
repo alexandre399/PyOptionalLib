@@ -1,6 +1,6 @@
 import pytest
 
-from optional import MissingValueError, Optional, optional
+from optional import MissingValueError, Optional, OptionalError, optional
 
 
 def test_optional_with_value() -> None:
@@ -131,14 +131,6 @@ def test_reduce() -> None:
         assert Optional(10).reduce(Optional(), lambda a, b: a).get()
 
 
-def test_value() -> None:
-    assert Optional(3).value == 3
-    assert Optional().value is None
-
-    with pytest.raises(AttributeError):
-        Optional(3)(lambda x: x + 1).value  # noqa: B018
-
-
 def test_decorator() -> None:
     @optional()
     def example_empty():
@@ -148,11 +140,11 @@ def test_decorator() -> None:
     def example():
         return 42
 
-    @optional()
+    @optional(catch=True)
     def example_raise():
         raise KeyError
 
-    @optional(catch=False)
+    @optional()
     def example_raise2():
         raise KeyError
 
@@ -167,9 +159,21 @@ def test_decorator() -> None:
     result = example_raise()
     assert isinstance(result, Optional)
     assert result.is_empty()
+    assert isinstance(result._exception, KeyError)  # type: ignore[attr-defined]
 
     with pytest.raises(KeyError):
         example_raise2()
+
+
+def test_error() -> None:
+    opt = OptionalError(KeyError())
+    assert opt.is_empty()
+    assert type(opt._exception) is KeyError
+
+    with pytest.raises(KeyError):
+        opt.get()
+
+    assert opt.map(lambda x: x + 2).is_empty()
 
 
 def test_aithmetic() -> None:
