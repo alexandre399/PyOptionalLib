@@ -181,19 +181,9 @@ from optional import optional
 # arithmetic operations
 print(Optional(3) + Optional(2))    # Prints: Final Value: 5
 print(Optional(3) - Optional(2))    # Prints: Final Value: 1
-print(Optional(3) * Optional(2))    # Prints: Final Value: 6
-print(Optional(3) / Optional(2))    # Prints: Final Value: 1.5
-print(Optional(3) // Optional(2))   # Prints: Final Value: 1
-print(Optional(3) % Optional(2))    # Prints: Final Value: 1
-print(Optional(3) ** Optional(2))   # Prints: Final Value: 9
 
 print(Optional(3) + Optional(2) == 5)       # Prints: Final Value: True
 print(Optional(3) - Optional(2) == 1)       # Prints: Final Value: True
-print(Optional(3) * Optional(2) == 6)       # Prints: Final Value: True
-print(Optional(3) / Optional(2) == 1.5)     # Prints: Final Value: True
-print(Optional(3) // Optional(2) == 1)      # Prints: Final Value: True
-print(Optional(3) % Optional(2) == 1)       # Prints: Final Value: True
-print(Optional(3) ** Optional(2) == 9)      # Prints: Final Value: True
 
 ```
 
@@ -203,15 +193,4 @@ from optional import optional
 # Logic comparator
 print(Optional(3) < Optional(4))
 print(Optional(3) < 4)
-print(Optional(3) <= Optional(3))
-print(Optional(3) <= 3)
-print(Optional(3) > Optional(2))
-print(Optional(3) > 2)
-print(Optional(3) >= Optional(3))
-print(Optional(3) >= 3)
-print(Optional(3) == Optional(3))
-print(Optional(3) == 3)
-print(Optional(3) != Optional(2))
-print(Optional(3) != 2)
-print(Optional() != Optional(2))
 ```
