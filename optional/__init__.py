@@ -1,6 +1,7 @@
 """Optional module."""
 
 import functools
+import sys
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from copy import copy
@@ -53,6 +54,23 @@ class Optional(Generic[T]):
 
         """
         return self._is_empty_callback(value)
+
+    @staticmethod
+    def raises(exception: BaseException | None = None) -> "Optional":
+        """Create an instance of the `Optional` class and associates an optional
+        exception.
+
+        Args:
+            exception (BaseException | None): The exception to associate. If no exception
+             is provided, the method uses `sys.exc_info()` to get the last exception.
+
+        Returns:
+            Optional: An instance of the `Optional` class with the associated exception.
+
+        """
+        optional = Optional()  # type: ignore[var-annotated]
+        optional.err = exception if exception else sys.exc_info()  # type: ignore[attr-defined]
+        return optional
 
     @property
     def value(self) -> T | None:
@@ -604,7 +622,7 @@ class OptionalCache(OptionalTransform[T, T]):
 
 def optional(
     is_empty: Callable[[T | None], bool] = lambda x: x is None,
-    catch: bool = True,  # noqa: FBT001, FBT002
+    catch: bool = False,  # noqa: FBT001, FBT002
 ) -> Callable[[Callable[..., T]], Callable[..., Optional]]:
     """Wrap a function and return an Optional object.
 
@@ -613,7 +631,7 @@ def optional(
         considered empty. Default is a function that returns True if the value is None.
 
         catch (bool): If an error occurs during the execution of the wrapped function,
-        an empty Optional is returned, default is True.
+        an empty Optional is returned, default is False.
 
     Returns:
         Callable[[Callable[..., T]], Callable[..., Optional]]: The wrapped function that
@@ -646,9 +664,9 @@ def optional(
             """
             try:
                 return Optional(value=func(*args, **kwargs), is_empty=is_empty)
-            except:
+            except BaseException as err:
                 if catch:
-                    return Optional()
+                    return Optional.raises(exception=err)
                 raise
 
         return wrapper

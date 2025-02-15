@@ -148,11 +148,11 @@ def test_decorator() -> None:
     def example():
         return 42
 
-    @optional()
+    @optional(catch=True)
     def example_raise():
         raise KeyError
 
-    @optional(catch=False)
+    @optional()
     def example_raise2():
         raise KeyError
 
@@ -167,6 +167,7 @@ def test_decorator() -> None:
     result = example_raise()
     assert isinstance(result, Optional)
     assert result.is_empty()
+    assert isinstance(result.err, KeyError)  # type: ignore[attr-defined]
 
     with pytest.raises(KeyError):
         example_raise2()
