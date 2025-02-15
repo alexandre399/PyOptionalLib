@@ -1,6 +1,6 @@
 import pytest
 
-from optional import MissingValueError, Optional, optional
+from optional import MissingValueError, Optional, OptionalError, optional
 
 
 def test_optional_with_value() -> None:
@@ -159,10 +159,21 @@ def test_decorator() -> None:
     result = example_raise()
     assert isinstance(result, Optional)
     assert result.is_empty()
-    assert isinstance(result.err, KeyError)  # type: ignore[attr-defined]
+    assert isinstance(result._exception, KeyError)  # type: ignore[attr-defined]
 
     with pytest.raises(KeyError):
         example_raise2()
+
+
+def test_error() -> None:
+    opt = OptionalError(KeyError())
+    assert opt.is_empty()
+    assert type(opt._exception) is KeyError
+
+    with pytest.raises(KeyError):
+        opt.get()
+
+    assert opt.map(lambda x: x + 2).is_empty()
 
 
 def test_aithmetic() -> None:

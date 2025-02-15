@@ -1,7 +1,6 @@
 """Optional module."""
 
 import functools
-import sys
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from copy import copy
@@ -54,23 +53,6 @@ class Optional(Generic[T]):
 
         """
         return self._is_empty_callback(value)
-
-    @staticmethod
-    def raises(exception: BaseException | None = None) -> "Optional":
-        """Create an instance of the `Optional` class and associates an optional
-        exception.
-
-        Args:
-            exception (BaseException | None): The exception to associate. If no exception
-             is provided, the method uses `sys.exc_info()` to get the last exception.
-
-        Returns:
-            Optional: An instance of the `Optional` class with the associated exception.
-
-        """
-        optional = Optional()  # type: ignore[var-annotated]
-        optional.err = exception if exception else sys.exc_info()  # type: ignore[attr-defined]
-        return optional
 
     def __call__(self, callback: Callable[[T], R]) -> "Optional[R]":
         """Apply the given callback function to the object's state or data and returns
@@ -427,7 +409,11 @@ class Optional(Generic[T]):
             raise MissingValueError
         return self._value
 
-    def get(self, exception: type[MissingValueError] = MissingValueError, **kwargs) -> T:  # noqa: ANN003
+    def get(
+        self,
+        exception: type[MissingValueError] | BaseException = MissingValueError,
+        **kwargs,  # noqa: ANN003
+    ) -> T:
         """Get the value of the Optional instance, or a default value if not present.
 
         Args:
@@ -477,6 +463,25 @@ class Optional(Generic[T]):
             return self._get_value()  # type: ignore[return-value]
         except MissingValueError:
             return callback()
+
+
+class OptionalEmpty(Optional):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def _is_empty(self, value) -> bool:  # noqa: ARG002,ANN001
+        return True
+
+
+class OptionalError(OptionalEmpty):
+    _exception: BaseException
+
+    def __init__(self, exception: BaseException) -> None:
+        super().__init__()
+        self._exception = exception
+
+    def get(self, exception=MissingValueError, **kwargs) -> Any:  # noqa: ARG002,ANN001,ANN003,ANN401
+        return super().get(exception=self._exception, **kwargs)
 
 
 class OptionalTransform(ABC, Generic[T, R], Optional[R]):
@@ -656,7 +661,7 @@ def optional(
                 return Optional(value=func(*args, **kwargs), is_empty=is_empty)
             except BaseException as err:
                 if catch:
-                    return Optional.raises(exception=err)
+                    return OptionalError(exception=err)
                 raise
 
         return wrapper
