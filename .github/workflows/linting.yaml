@@ -1,0 +1,98 @@
+# https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+
+name: Linting Python & Tests
+
+on:
+  pull_request:
+    branches:
+    - develop
+    - main
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]  # , "3.11", "3.12"]
+    # permissions:
+    #   contents: write
+    #   id-token: write
+    #   pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install . ruff mypy pytest pytest-cov --user
+          pip list
+
+      - name: Lint code with Ruff
+        run: ruff check --output-format=github
+
+      - name: Check code formatting with Ruff
+        run: ruff format --check
+        continue-on-error: true
+
+      - name: Check code with Mypy
+        run: mypy .
+
+      - name: Test with pytest
+        run: |
+          pytest --cov --cov-report=xml --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results-${{ matrix.python-version }}
+          path: junit/test-results-${{ matrix.python-version }}.xml
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+
+      - uses: 5monkeys/cobertura-action@master
+        with:
+          path: coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 90
+          fail_below_threshold: true
+
+
+  complexity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install radon[toml]
+          pip list
+
+      - name: raw
+        run: radon raw -s . | tee radon-raw.txt
+
+      - name: halstead
+        run: radon hal -f . | tee radon-halstead.txt
+
+      - name: mcCabe
+        run: radon cc -s -a . | tee radon-mcCabe.txt
+
+      - name: maintainability
+        run: radon mi -s . | tee radon-maintainability.txt
+
+      - name: Upload radon results
+        uses: actions/upload-artifact@v4
+        with:
+          name: radon
+          path: radon-*
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
